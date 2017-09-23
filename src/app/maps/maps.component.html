@@ -1,0 +1,38 @@
+ <div class="col-md-12">
+  
+<div class="col-md-3">
+    <form class="form-inline">
+      <label>Geometry type &nbsp;</label>
+     
+      <select id="type"(change)="onChangeGeometry($event.target.value)">
+        <option value="Point">Point</option>
+        <option value="LineString">LineString</option>
+        <option value="Polygon">Polygon</option>
+        <option value="Circle">Circle</option>
+      </select>
+        
+        <select id="modetype"(change)="onchangeMode($event.target.value)">
+        <option value="view">View</option>
+        <option value="draw">Draw</option>
+        <option value="delete">Delete</option>
+       </select>
+      <br>
+      <h3>show detections :{{total_detections}}</h3>
+      &<h3> show edited features: {{features_length}}</h3>
+      
+      <br>
+      <label> mouse positon</label>
+      <div id="mouse_positions"></div>
+
+      <button class="btn btn-primary" (click)="getFeature()">getFeature  </button>
+
+</form> 
+
+</div>
+<div class="col-md-9" >
+
+<div id="map"  class="map"></div>
+
+</div>
+
+</div> 

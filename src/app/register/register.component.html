@@ -1,0 +1,27 @@
+<form [formGroup]="regform" class="validate" (ngSubmit)="Register()" >
+                
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" formControlName="username" class="form-control" >
+    </div>
+    <div class="form-group">
+      <label>Eail</label>
+      <input type="email" formControlName="email"  class="form-control" >
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" formControlName="password1" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Conform Password</label>
+      <input type="password" formControlName="password2"  class="form-control" >
+    </div>
+    <div class="form-group">
+    
+        <div>
+          <input type="submit" value="Register" class="btn btn-blue" >
+      
+      </div>
+    </div>
+			</form>
+<h2>{{postData}}</h2>
