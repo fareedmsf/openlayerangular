@@ -27,22 +27,29 @@ return this._http.post('http://mitradevel.cshl.org/table/rest-auth/login/',param
 
     //for polygons
 getfirstpasspolygons(){
-return this._http.get('http://mitradevel.cshl.org/nisslapi/getfirstpass/')
+return this._http.get('http://mitradevel.cshl.org/nisslapi/getdata/')
                  .map(res=>res.json());
 }
 
 
-
 postfeatures(forms){
-var json =JSON.stringify(forms);
-var params = json;
-var headers =new Headers();     
-headers.append('content-Type','application/x-www-form-urlencoded');
-return this._http.post('http://mitradevel.cshl.org/nisslapi/getsavedata/',params,
-{
-   headers:headers
+    var params = forms;
+    //var params =JSON.stringify(forms);
+    console.log(params);
+    return this._http.post('http://mitradevel.cshl.org/nisslapi/postdata/',params).subscribe();//.map(res=>res.json());
+    }
 
-}).map(res=>res.json());
-}
+// postfeatures(forms){
+// var json =JSON.stringify(forms);
+// var params = json;
+// var headers =new Headers();   
+// console.log("innn");
+// headers.append('content-Type','application/x-www-form-urlencoded');
+// return this._http.post('http://mitradevel.cshl.org/nisslapi/getsavedata/',params,
+// {
+//    headers:headers
+
+// }).map(res=>res.json());
+// }
 
 }
