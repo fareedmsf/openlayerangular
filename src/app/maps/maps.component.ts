@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import {Headers}from'@angular/http';
 import{ HttpTestService } from'../http-test.service';
 import { HostListener } from "@angular/core";
+import { delay } from 'q';
 
 
 var map;
@@ -498,8 +499,13 @@ eventHandler(event:KeyboardEvent){
       (response)=>{
        var status = response.json()[0];
        if (status == "Success"){
-          this.response_Msg="Saved"
-          this.response=false;
+         
+         
+         setTimeout(()=>{
+           this.response=false;
+           this.response_Msg="Saved"
+        },2000);
+         
        }
       }
     );

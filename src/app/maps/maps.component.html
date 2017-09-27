@@ -49,21 +49,13 @@
           </li>
         </ul>
      
-
-       <!-- <div class="checkbox" style="margin-top:15px;">
-        
-        <label style="font-weight:bold;"><input type="checkbox" (change)="groundtruth($event)" value="groundtruth" checked>Show detections({{total_detections}})</label>
-        <br>
-        <label style="font-weight:bold;"><input type="checkbox" (change)="userdraw($event)" value="userdraw" checked>Show my markings({{drawn_features}})</label>
-        <br>
-        <label style="font-weight:bold;"><input type="checkbox" (change)="userdel($event)" value="userdel">Show my deletions:({{deleted_features}})</label>
-        
-      </div> -->
       <br>
       <div class="col-md-12">
         
-        <label  class="w3-center w3-animate-zoom" style="color:green;font-weight:bold" *ngIf="response_msg" >
-            <p><i class="fa fa-spinner w3-spin" style="font-size:24px"></i></p>{{response_Msg}}</label>
+        <label  class="w3-center w3-animate-zoom" style="color:green;font-weight:bold" *ngIf="response" >
+            <p><i class="fa fa-spinner w3-spin" style="font-size:24px"></i></p></label>
+
+            <label class="w3-center w3-animate-zoom" style="color:green;font-weight:bold">{{response_Msg}}</label>
         <button class="btn btn-primary pull-right"  (click)="postFeature()">Save</button>
     
       </div>
@@ -73,7 +65,7 @@
 
   <div class="col-md-9" style="margin-top:10px">
 
-      <div id="map"  class="map "></div>
+      <div id="map"  class="map rounded"></div>
 
   </div>
 
