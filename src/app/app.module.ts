@@ -20,6 +20,7 @@ import { FormsModule }   from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { Table2Component } from './table2/table2.component';
 import { MapsComponent } from './maps/maps.component';
+import { AnnotateComponent } from './annotate/annotate.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MapsComponent } from './maps/maps.component';
     HomeComponent,
     RegisterComponent,
     Table2Component,
-    MapsComponent
+    MapsComponent,
+    AnnotateComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +45,8 @@ import { MapsComponent } from './maps/maps.component';
     FormsModule,
     PaginationModule.forRoot(),
 
-    RouterModule.forRoot(rootRouterConfig, { useHash: true }),
-
+  //  RouterModule.forRoot(rootRouterConfig, { useHash: true }),
+    RouterModule.forRoot(rootRouterConfig, { }),
 
 
 

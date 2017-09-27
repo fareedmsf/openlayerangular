@@ -3,10 +3,9 @@
     <button class="btn btn-primary pull-right" (click)="setDefault()" >   
     <span  style="cursor:move" class="glyphicon glyphicon-screenshot "></span>
   </button>
-
-    <!-- <button (click)="setDefault()"  class="pull-right btn btn-info" >setDefault</button> -->
-<div class="col-md-3 well" style="margin-top:10px">
-
+  <br>
+ <div class="row" style="padding:20px">
+  <div class="col-md-3 well" style="margin-top:5px">
     <form class="form-inline">
       <div class="col-md-6 col-md-offset-3">
       <span class="badge">Geometry type</span>
@@ -19,10 +18,9 @@
             <option value="draw">Draw</option>
             <option value="delete">Delete</option>
             </select>
-          </div>    
+        </div>    
           <div class="col-md-6"> 
             <select style="cursor:pointer" id="type" class="form-control" *ngIf="drawtype" (change)="onChangeGeometry($event.target.value)">
-            <option value="Point">Point</option>
             <option value="LineString">LineString</option>
             <option value="Polygon">Polygon</option>
             </select>
@@ -33,19 +31,19 @@
          <div  class="col-md-6 col-md-offset-3" style="margin-top:15px;">
           <span class="badge" >Mouse Position</span>
         </div>
-        <div id="mouse_positions"class="badge col-md-6 col-md-offset-3" style="margin-top:15px;" ></div>
+        <div id="mouse_positions"class="badge col-md-8 col-md-offset-2" style="margin-top:15px;" ></div>
       </div>
      
       
       <ul class="col-md-12 list-group" style="margin-top:15px;">
           <li class="list-group-item">
-              <label style="font-weight:bold; cursor:pointer " ><input type="checkbox" (change)="groundtruth($event)" value="groundtruth" checked>Show detections({{total_detections}})</label>
+              <label style=" cursor:pointer " ><input type="checkbox" (change)="groundtruth($event)" value="groundtruth" checked>Show detections({{total_detections}})</label>
           </li>
           <li class="list-group-item">
-              <label style="font-weight:bold; cursor:pointer "><input type="checkbox" (change)="userdraw($event)" value="userdraw" checked>Show my markings({{drawn_features}})</label>
+              <label style=" cursor:pointer "><input type="checkbox" (change)="userdraw($event)" value="userdraw" checked>Show my markings({{drawn_features}})</label>
           </li>
           <li class="list-group-item">
-              <label style="font-weight:bold; cursor:pointer "><input type="checkbox" (change)="userdel($event)" value="userdel">Show my deletions:({{deleted_features}})</label>
+              <label style=" cursor:pointer "><input type="checkbox" (change)="userdel($event)" value="userdel">Show my deletions:({{deleted_features}})</label>
           </li>
         </ul>
      
@@ -63,10 +61,11 @@
 </form> 
 </div>
 
-  <div class="col-md-9" style="margin-top:10px">
+  <div class="col-md-9"  style=" border-radius: 25px;border: 2px solid rgba(73, 83, 92, 0.21);padding: 10px;">
 
-      <div id="map"  class="map rounded"></div>
+      <div id="map"  class="map"></div>
 
   </div>
+</div>
 
 </div> 
