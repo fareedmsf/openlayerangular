@@ -1,48 +1,80 @@
  <div class="col-md-12">
   
-<div class="col-md-3">
+    <button class="btn btn-primary pull-right" (click)="setDefault()" >   
+    <span  style="cursor:move" class="glyphicon glyphicon-screenshot "></span>
+  </button>
+
+    <!-- <button (click)="setDefault()"  class="pull-right btn btn-info" >setDefault</button> -->
+<div class="col-md-3 well" style="margin-top:10px">
 
     <form class="form-inline">
-      <label>Geometry type &nbsp;</label> 
-      <button (click)="setDefault()">setDefault</button>
+      <div class="col-md-6 col-md-offset-3">
+      <span class="badge">Geometry type</span>
+      </div>
+
+    <div class="col-md-12" style="margin-top:15px;">
+      <div class="col-md-6"> 
+        <select style="cursor:pointer" id="modetype" class="form-control" (change)="onchangeMode($event.target.value)">
+            <option value="view">View</option>
+            <option value="draw">Draw</option>
+            <option value="delete">Delete</option>
+            </select>
+          </div>    
+          <div class="col-md-6"> 
+            <select style="cursor:pointer" id="type" class="form-control" *ngIf="drawtype" (change)="onChangeGeometry($event.target.value)">
+            <option value="Point">Point</option>
+            <option value="LineString">LineString</option>
+            <option value="Polygon">Polygon</option>
+            </select>
+         </div>
+      </div>
      
-      <select id="type" *ngIf="drawtype" (change)="onChangeGeometry($event.target.value)">
-        <option value="Point">Point</option>
-        <option value="LineString">LineString</option>
-        <option value="Polygon">Polygon</option>
-        <!-- <option value="Circle">Circle</option> -->
-      </select>
-        
-        <select id="modetype"(change)="onchangeMode($event.target.value)">
-        <option value="view">View</option>
-        <option value="draw">Draw</option>
-        <option value="delete">Delete</option>
-       </select>
+       <div class="col-md-12" style="margin-top:15px;">
+         <div  class="col-md-6 col-md-offset-3" style="margin-top:15px;">
+          <span class="badge" >Mouse Position</span>
+        </div>
+        <div id="mouse_positions"class="badge col-md-6 col-md-offset-3" style="margin-top:15px;" ></div>
+      </div>
      
       
-      <br>
-      <label> mouse positon</label>
-      <div id="mouse_positions"></div>
-      <br>
-       <div class="checkbox">
-  <label><input type="checkbox" (change)="groundtruth($event)" value="groundtruth" checked>Show detections({{total_detections}})</label>
-  <br>
-  <label><input type="checkbox" (change)="userdraw($event)" value="userdraw" checked>Show my markings({{drawn_features}})</label>
-   <br>
-  <label><input type="checkbox" (change)="userdel($event)" value="userdel">Show my deletions:({{deleted_features}})</label>
-</div>
+      <ul class="col-md-12 list-group" style="margin-top:15px;">
+          <li class="list-group-item">
+              <label style="font-weight:bold; cursor:pointer " ><input type="checkbox" (change)="groundtruth($event)" value="groundtruth" checked>Show detections({{total_detections}})</label>
+          </li>
+          <li class="list-group-item">
+              <label style="font-weight:bold; cursor:pointer "><input type="checkbox" (change)="userdraw($event)" value="userdraw" checked>Show my markings({{drawn_features}})</label>
+          </li>
+          <li class="list-group-item">
+              <label style="font-weight:bold; cursor:pointer "><input type="checkbox" (change)="userdel($event)" value="userdel">Show my deletions:({{deleted_features}})</label>
+          </li>
+        </ul>
+     
 
-      <button class="btn btn-primary" (click)="getFeature()">getFeature  </button>
+       <!-- <div class="checkbox" style="margin-top:15px;">
+        
+        <label style="font-weight:bold;"><input type="checkbox" (change)="groundtruth($event)" value="groundtruth" checked>Show detections({{total_detections}})</label>
+        <br>
+        <label style="font-weight:bold;"><input type="checkbox" (change)="userdraw($event)" value="userdraw" checked>Show my markings({{drawn_features}})</label>
+        <br>
+        <label style="font-weight:bold;"><input type="checkbox" (change)="userdel($event)" value="userdel">Show my deletions:({{deleted_features}})</label>
+        
+      </div> -->
+      <br>
+      <div class="col-md-12">
+        
+        <label  class="w3-center w3-animate-zoom" style="color:green;font-weight:bold" *ngIf="response_msg" >
+            <p><i class="fa fa-spinner w3-spin" style="font-size:24px"></i></p>{{response_Msg}}</label>
+        <button class="btn btn-primary pull-right"  (click)="postFeature()">Save</button>
+    
+      </div>
 
 </form> 
-    
-
-
 </div>
-<div class="col-md-9" >
 
-<div id="map"  class="map"></div>
+  <div class="col-md-9" style="margin-top:10px">
 
-</div>
+      <div id="map"  class="map "></div>
+
+  </div>
 
 </div> 

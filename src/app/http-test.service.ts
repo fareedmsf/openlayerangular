@@ -34,9 +34,10 @@ return this._http.get('http://mitradevel.cshl.org/nisslapi/getdata/')
 
 postfeatures(forms){
     var params = forms;
-    //var params =JSON.stringify(forms);
-    console.log(params);
-    return this._http.post('http://mitradevel.cshl.org/nisslapi/postdata/',params).subscribe();//.map(res=>res.json());
+    console.log("Saving")
+  
+    return this._http.post('http://mitradevel.cshl.org/nisslapi/postdata/',params);
+    //.map(res=>res.json());
     }
 
 // postfeatures(forms){

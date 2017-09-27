@@ -27,9 +27,11 @@ var vector_deletions;
 })
 export class MapsComponent implements OnInit {
   drawtype =false;
+  response=false;
   total_detections:any;
   drawn_features:any;
-  deleted_features:any;r
+  deleted_features:any;
+  response_Msg:any;
   //centerfocus= '../assets/img/centerfocus.png';
  
   getData:any;
@@ -38,7 +40,7 @@ export class MapsComponent implements OnInit {
   }
   
   ngOnInit(){
-    // console.log(map);
+    // console.log(map);  
       //Map containing all the layers
     // select =  
     //  var extent= [0,-554,554,0]; 
@@ -314,9 +316,9 @@ maponclick(){
 
 getpolygons(){
    this._httpService.getfirstpasspolygons().subscribe(
-   data=>{this.getData=data;
+     data=>{this.getData=data;
      this.add_polygon_feature(data);
-   console.log(data);
+     console.log(data);
   },
     error=>alert(error),
  ); 
@@ -325,47 +327,42 @@ getpolygons(){
 
 add_polygon_feature(getData){
   //Add features to the vector_data -- Firstpass
+
   console.log(getData[0].firstpass);
-
-  var json_data = JSON.parse( getData[0].firstpass)['features'];
-   //{"type":"FeatureCollection","features":JSON.parse( getData[0].firstpass)};
-
-  
-
-  for (var i in json_data){ 
-    vector_data.getSource().addFeature(json_data[i]);
-  }
-
-  /*
+  var json_data;
+  var temp_json=getData[0].firstpass;
+  var temp_draw =getData[0].drawnfeat;
+  var draw_data;
   var deleted_ids= getData[0].deletedids;
-  var json_data = (new ol.format.GeoJSON()).readFeatures(polygons);
-  first_pass_length = json_data.length;
-  var temp_poly = getData[0].drawnfeat;
-  var draw_features = [];
 
-  for (var i in temp_poly)
-    draw_features.push(JSON.parse(temp_poly[i]))
-  
-  var drawn_polygons = {"type":"FeatureCollection","features":draw_features};
-  var draw_data = (new ol.format.GeoJSON().readFeatures(drawn_polygons));
+  // This is to add firstpass data to the vector_data layer. The addition is done based on considering the deleted
+  // ids. If the id is present in deleted id list then the polygon is added to the delete layer.
+  if(temp_json.length!=0)
+    json_data = (new ol.format.GeoJSON()).readFeatures( getData[0].firstpass);
+  else
+    json_data=(new ol.format.GeoJSON()).readFeatures({'type': 'FeatureCollection', 'features': []});
 
-  for (var i in json_data){ 
-    if (deleted_ids.indexOf(json_data[i].getId()) !=-1){
-      vector_deletions.getSource().addFeature(json_data[i]);
+    for (var i in json_data){ 
+      if (deleted_ids.indexOf(json_data[i].getId()) !=-1){
+        vector_deletions.getSource().addFeature(json_data[i]);
+      }
+      else{
+        vector_data.getSource().addFeature(json_data[i]);
+      }
     }
-    else{
-      vector_data.getSource().addFeature(json_data[i]);
-    }
-  }
-
-  for (var i in draw_data){
-    vector_edit.getSource().addFeature(draw_data[i]);
-  }
-
   
+  // This is to add the polygons drawn by the user. 
+  if(temp_draw.length!=0)
+   draw_data = (new ol.format.GeoJSON()).readFeatures(getData[0].drawnfeat);
+  else
+    draw_data=(new ol.format.GeoJSON()).readFeatures({'type': 'FeatureCollection', 'features': []})
 
-  //first_pass_length = vector_data.getSource().getFeatures();
-  */
+    vector_edit.getSource().addFeatures(draw_data);
+  /*
+    for (var i in draw_data){
+      vector_edit.getSource().addFeature(draw_data[i]);
+    }
+    */
   this.updateCounts();
 
 }
@@ -474,8 +471,9 @@ eventHandler(event:KeyboardEvent){
     }
 
 
-    getFeature(){
-  
+    postFeature(){
+     this.response=true;
+     this.response_Msg="Saving";
      var features_new = vector_edit.getSource().getFeatures();
      var  features_del = vector_deletions.getSource().getFeatures();
      var del_feat_id = [];   
@@ -486,14 +484,26 @@ eventHandler(event:KeyboardEvent){
     }
   
     for( var i in features_new){
-      added_features.push(new ol.format.GeoJSON().writeFeature(features_new[i]));
+      var temp_features = new ol.format.GeoJSON().writeFeature(features_new[i]);
+      added_features.push(JSON.parse(temp_features));
     }
+    var final_features;
+    final_features = {'type':'FeatureCollection','features':added_features};
+
     console.log(del_feat_id);
     console.log(added_features);
-    post_data={"del_id":del_feat_id,"added_features": added_features};
-    this._httpService.postfeatures(post_data);
-   }
+    post_data={"deletedids":del_feat_id,"drawnfeat":JSON.stringify(final_features)};
 
+    this._httpService.postfeatures(post_data).subscribe(
+      (response)=>{
+       var status = response.json()[0];
+       if (status == "Success"){
+          this.response_Msg="Saved"
+          this.response=false;
+       }
+      }
+    );
+   }
 
   } 
 
