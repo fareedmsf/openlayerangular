@@ -9,6 +9,7 @@ export const rootRouterConfig: Routes = [
     path:'angannotate',component:AnnotateComponent,
     children:[
       { path: 'maps', component: MapsComponent },
+      { path: 'home', component: HomeComponent }
     ]
   }
     // { path: '', redirectTo: 'Login', pathMatch: 'full' },

@@ -19,9 +19,11 @@
             <option value="delete">Delete</option>
             </select>
         </div>    
+        
           <div class="col-md-6"> 
-            <select style="cursor:pointer" id="type" class="form-control" *ngIf="drawtype" (change)="onChangeGeometry($event.target.value)">
-            <option value="LineString">LineString</option>
+            <select style="cursor:pointer" id="type" class="form-control" *ngIf="drawtype"  (change)="onChangeGeometry($event.target.value)">
+              <option value="Point">Point</option>
+              <option value="LineString">LineString</option>
             <option value="Polygon">Polygon</option>
             </select>
          </div>

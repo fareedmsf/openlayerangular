@@ -18,7 +18,7 @@ var select;
 var draw;
 var first_pass_length;
 var vector_deletions;
-
+var geom_type="Point";
 
 @Component({
   selector: 'app-maps',
@@ -104,7 +104,7 @@ export class MapsComponent implements OnInit {
                 radius: 7,
                 fill: null,
                 stroke: new ol.style.Stroke({
-                  color: '#000000',
+                  color: '#00ff00',
                   width: 2
                 }),
               })
@@ -135,26 +135,6 @@ export class MapsComponent implements OnInit {
 
   
 
-  vector_edit = new ol.layer.Vector({
-      source: source_edit,
-      style: new ol.style.Style({
-        fill: new ol.style.Fill({
-          color: 'rgba(255, 255, 255, 0)'
-        }),
-        stroke: new ol.style.Stroke({
-          color: '#00ff00',
-          width: 2
-        }),
-        image: new ol.style.Circle({
-          radius: 7,
-          fill: null,
-          stroke: new ol.style.Stroke({
-            color: '#000000',
-            width: 2
-          }),
-        })
-      })
-    });
 
 
     vector_deletions = new ol.layer.Vector({
@@ -385,6 +365,10 @@ addInteraction(devicevalue) {
 
 //Events  
 onChangeGeometry(deviceValue) {
+  geom_type = deviceValue;
+  map.removeInteraction(draw);
+  map.removeInteraction(select);
+  // map.removeIntera
   this.addInteraction(deviceValue);  
 }
 
@@ -393,7 +377,8 @@ onchangeMode(mode){
   if (mode == "draw"){
      map.removeInteraction(select);
      this.drawtype =true;
-    //  this.addInteraction("Point");
+      // var drawtype_value =(<HTMLInputElement>document.getElementById('modetype')).value;
+     this.addInteraction(geom_type);
     }
   if (mode == "view"){
     map.removeInteraction(draw);

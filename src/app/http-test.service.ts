@@ -9,7 +9,7 @@ export class HttpTestService{
 constructor(private _http: Http){}
 
 
-getCurrentTime(){
+table_data(){
 return this._http.get('http://mitradevel.cshl.org/table/get').map(res=>res.json());
 }
 

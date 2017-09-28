@@ -42,7 +42,7 @@ getData: Array<any>;
   };
 
 ngOnInit() {
-   this._httpService.getCurrentTime().subscribe(
+   this._httpService.table_data().subscribe(
     data=>{
     this.getData=data;
     console.log(data);
